@@ -1,0 +1,85 @@
+.page {
+  min-height: 100vh;
+  display: flex;
+  align-items: flex-start;
+  justify-content: center;
+  padding: 40px 16px 80px;
+}
+
+.card {
+  width: 100%;
+  max-width: 640px;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+/* ヘッダー */
+.header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+}
+
+.title {
+  font-size: clamp(22px, 5vw, 28px);
+  font-weight: 700;
+  color: var(--color-text);
+  letter-spacing: -0.5px;
+  margin: 0;
+}
+
+.clearBtn {
+  font-size: 13px;
+  font-family: inherit;
+  color: var(--color-muted);
+  background: none;
+  border: 1px solid var(--color-border);
+  border-radius: 8px;
+  padding: 6px 12px;
+  cursor: pointer;
+  transition: color 0.15s, border-color 0.15s, background 0.15s;
+  white-space: nowrap;
+}
+
+.clearBtn:hover {
+  color: #ef4444;
+  border-color: #ef4444;
+  background: #fee2e2;
+}
+
+/* 進捗バー */
+.progressBar {
+  height: 6px;
+  background: var(--color-hover);
+  border-radius: 99px;
+  overflow: hidden;
+}
+
+.progressFill {
+  height: 100%;
+  background: linear-gradient(90deg, var(--color-primary), var(--color-primary-dark));
+  border-radius: 99px;
+  transition: width 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* タスクリスト */
+.list {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  margin: 0;
+  padding: 0;
+  min-height: 40px;
+}
+
+/* 空状態 */
+.empty {
+  text-align: center;
+  padding: 40px 20px;
+  color: var(--color-muted);
+  font-size: 14px;
+  border: 2px dashed var(--color-border);
+  border-radius: 12px;
+}
