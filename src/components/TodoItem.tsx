@@ -6,7 +6,7 @@ import styles from './TodoItem.module.css';
 
 interface Props {
   todo: Todo;
-  onToggle: (id: string) => void;
+  onToggle: (id: string, checkboxRect?: DOMRect) => void;
   onDelete: (id: string) => void;
   onEdit: (id: string, newText: string) => void;
 }
@@ -78,7 +78,7 @@ export function TodoItem({ todo, onToggle, onDelete, onEdit }: Props) {
       {/* チェックボックス */}
       <button
         className={styles.checkbox}
-        onClick={() => onToggle(todo.id)}
+        onClick={(e) => onToggle(todo.id, e.currentTarget.getBoundingClientRect())}
         aria-label={todo.completed ? 'タスクを未完了にする' : 'タスクを完了にする'}
         aria-pressed={todo.completed}
       >

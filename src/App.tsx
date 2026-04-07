@@ -16,6 +16,7 @@ import {
 } from '@dnd-kit/sortable';
 import { restrictToVerticalAxis } from '@dnd-kit/modifiers';
 import { useLocalStorage } from './hooks/useLocalStorage';
+import { useConfetti } from './hooks/useConfetti';
 import { TodoItem } from './components/TodoItem';
 import { AddTodoForm } from './components/AddTodoForm';
 import { FilterBar } from './components/FilterBar';
@@ -25,6 +26,7 @@ import styles from './App.module.css';
 export default function App() {
   const [todos, setTodos] = useLocalStorage<Todo[]>('todos', []);
   const [filter, setFilter] = useState<FilterType>('all');
+  const { fire: fireConfetti } = useConfetti();
 
   // ドラッグセンサー設定
   const sensors = useSensors(
@@ -64,7 +66,14 @@ export default function App() {
     setTodos((prev) => [newTodo, ...prev]);
   };
 
-  const handleToggle = (id: string) => {
+  const handleToggle = (id: string, checkboxRect?: DOMRect) => {
+    const target = todos.find((t) => t.id === id);
+    if (target && !target.completed && checkboxRect) {
+      // 未完了 → 完了 になるときだけ紙吹雪を発火
+      const x = (checkboxRect.left + checkboxRect.width / 2) / window.innerWidth;
+      const y = (checkboxRect.top + checkboxRect.height / 2) / window.innerHeight;
+      fireConfetti(x, y);
+    }
     setTodos((prev) =>
       prev.map((t) => (t.id === id ? { ...t, completed: !t.completed } : t))
     );
